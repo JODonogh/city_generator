@@ -1,0 +1,37 @@
+import bpy
+import random
+import bmesh
+
+        
+#creating and transforming plank
+def create_house(height, thickness, angle):
+    bpy.ops.mesh.primitive_cube_add(size= 1, location =(-1000, 0, 4.5))
+    bpy.ops.transform.resize(value= (thickness, length, height), orient_type='LOCAL')
+    bpy.ops.transform.translate(value= (1,1, 15), orient_matrix = ((1, 0, 0), (0, 1, 0), (0, 0, 1)))
+
+    #bpy.ops.mesh.primitive_cylinder_add(vertices=3, radius=1, depth=2, location = (-200, 160,0),rotation=(0, 0, count+1), scale=(1, 1, height))
+    #bpy.ops.transform.resize(value= (thickness/10, length/10, height/10), orient_type='LOCAL')
+    #bpy.ops.transform.translate(value= (1,1, 15), orient_matrix = ((1, 0, 0), (0, 1, 0), (0, 0, 1)))
+
+           
+gap = 15
+count = 1
+    
+for p in range(6):
+    #random variables
+    thickness= random.randrange(5, 25)
+    height = random.uniform(10, 15)
+    length = random.randrange(10, 15)
+    angle = random.uniform(-0.1, 0.1)
+
+    #house create
+    create_house(height, thickness, length)
+    bpy.ops.transform.translate(value= (15, (gap)*p, 0))
+    create_house(thickness, height, length)
+    bpy.ops.transform.translate(value= (45, (gap)*p, 0))
+    create_house(length, height, thickness)
+    bpy.ops.transform.translate(value= (70, (gap)*p, 0))
+    
+    #bpy.ops.object.duplicate_move_linked(OBJECT_OT_duplicate={"linked":True, "mode":'TRANSLATION'}, TRANSFORM_OT_translate={"value":((0.5+gap), -0.1, 0), "orient_axis_ortho":'X'})
+    
+
